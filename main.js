@@ -63,3 +63,29 @@ function createTodoItem(text) {
 
     return listItem;
 }
+function startEdit(listItem) {
+    const todoText = listItem.querySelector('.todo-text').textContent;
+    
+    listItem.innerHTML = `
+        <input type="text" class="edit-input" value="${todoText}">
+        <div class="icon-container">
+            <button class="check-btn">
+                <img src="images/check.png" alt="Confirm">
+            </button>
+            <button class="close-btn">
+                <img src="images/close.png" alt="Cancel">
+            </button>
+        </div>
+    `;
+
+    listItem.querySelector('.check-btn').addEventListener('click', function() {
+        const newText = listItem.querySelector('.edit-input').value;
+        const updatedItem = createTodoItem(newText);
+        listItem.replaceWith(updatedItem);
+    });
+
+    listItem.querySelector('.close-btn').addEventListener('click', function() {
+        const originalItem = createTodoItem(todoText);
+        listItem.replaceWith(originalItem);
+    });
+}
